@@ -3,15 +3,11 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/limayur8166-dotcom/book-car-ride.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                dir('backend') {
+                    sh 'npm install'
+                }
             }
         }
 
@@ -23,7 +19,9 @@ pipeline {
 
         stage('Run App') {
             steps {
-                sh 'nohup npm start > app.log 2>&1 &'
+                dir('backend') {
+                    sh 'nohup npm start > app.log 2>&1 &'
+                }
             }
         }
     }
